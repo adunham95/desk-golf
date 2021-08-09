@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import cookie from 'cookie';
 import { createToken } from './token';
 
 const { genSalt, hash } = bcrypt;
@@ -27,24 +28,25 @@ export async function registerUser(email: string, password: string, name: {first
 }
 
 export async function refreshTokens(sessionToken, userID, reply) {
-  const rootDomain = process.env.ROOT_DOMAIN;
   try {
     const { accessToken, refreshToken } = await createToken(sessionToken, userID);
 
     const now = new Date();
-    const refreshExpires = now.setDate(now.getDate() + 30);
-    reply.setCookie('accessToken', accessToken, {
-      path: '/',
-      domain: rootDomain,
-      httpOnly: true,
-      secure: true,
-    }).setCookie('refreshToken', refreshToken, {
-      path: '/',
-      domain: rootDomain,
-      httpOnly: true,
-      secure: true,
-      expires: refreshExpires,
-    });
+    const refreshExpires = new Date(now.getTime() + 1000 * 60 * 60 * 24 * 30);
+    console.log(refreshExpires);
+
+    reply.setHeader('Set-Cookie',
+      cookie.serialize('accessToken', accessToken, {
+        path: '/',
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      })).setHeader('Set-Cookie',
+      cookie.serialize('refreshToken', refreshToken, {
+        path: '/',
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        expires: refreshExpires,
+      }));
   } catch (error) {
     console.error(error);
   }
