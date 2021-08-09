@@ -7,9 +7,9 @@ export async function authorizeUser(email, password) {
     'email.address': email,
   });
   // Get user Password
-  const savedPW = userData.password;
+  const savedPW = userData?.password;
   // Compare password with one in db
   const isAuthorized = await compare(password, savedPW);
   // Return boolean password correct
-  return { isAuthorized, userID: userData._id };
+  return { isAuthorized, userID: userData?._id };
 }
