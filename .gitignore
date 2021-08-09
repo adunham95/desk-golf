@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+.vscode
 
 # debug
 npm-debug.log*
@@ -38,4 +39,6 @@ __generated__
 *.graphql.d.ts
 *.graphqls.d.ts
 
-.vscode
+# pwa stuff
+sw.js*
+workbox*.js*
