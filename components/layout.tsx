@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import { Banner } from './banner';
+import Header from './header';
 
 const metaData = {
   siteName: 'Disk Golf',
@@ -14,7 +15,7 @@ interface LayoutInterface {
 }
 
 const banner = {
-  show: true,
+  show: false,
   link: 'google.com',
   text: 'Some text here',
   cta: 'Learn More',
@@ -60,6 +61,7 @@ export const Layout = ({
 
     />
     )}
+    {showHeader && <Header />}
     <main>
       {children}
     </main>
