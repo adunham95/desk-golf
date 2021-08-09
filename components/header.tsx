@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const links = [
   { id: 'dashboard', title: 'Dashboard', path: '/' },
@@ -141,14 +141,12 @@ const Header = () => {
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"
-                tabIndex="-1"
               >
                 {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
                 <a
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
-                  tabIndex="-1"
                   id="user-menu-item-0"
                 >
                   Your Profile
@@ -157,7 +155,6 @@ const Header = () => {
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
-                  tabIndex="-1"
                   id="user-menu-item-1"
                 >
                   Settings
@@ -166,7 +163,6 @@ const Header = () => {
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
-                  tabIndex="-1"
                   id="user-menu-item-2"
                 >
                   Sign out
