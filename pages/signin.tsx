@@ -2,7 +2,31 @@ import React, { useState } from 'react';
 import { Layout } from '../components/layout';
 
 const SignInPage = () => {
-  const [] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function login(e) {
+    try {
+      e.preventDefault();
+
+      const newUser = {
+        email,
+        password,
+      };
+
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <Layout pageTitle="Login">
       <div>
@@ -30,8 +54,7 @@ const SignInPage = () => {
             </div>
             <form
               className="mt-8 space-y-6"
-              action="#"
-              method="POST"
+              onSubmit={(e) => login(e)}
             >
               <input
                 type="hidden"
@@ -51,6 +74,7 @@ const SignInPage = () => {
                     name="email"
                     type="email"
                     required
+                    onChange={(e) => setEmail(e.target.value)}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                     placeholder="Email address"
                   />
@@ -67,6 +91,7 @@ const SignInPage = () => {
                     name="password"
                     type="password"
                     required
+                    onChange={(e) => setPassword(e.target.value)}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                     placeholder="Password"
                   />

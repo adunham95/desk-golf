@@ -2,7 +2,35 @@ import React, { useState } from 'react';
 import { Layout } from '../components/layout';
 
 const SignUpPage = () => {
-  const [] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function createAccount(e) {
+    try {
+      e.preventDefault();
+
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        password,
+      };
+
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <Layout pageTitle="Create Account">
       <div>
@@ -20,8 +48,7 @@ const SignUpPage = () => {
             </div>
             <form
               className="mt-8 space-y-6"
-              action="#"
-              method="POST"
+              onSubmit={(e) => createAccount(e)}
             >
               <div className="rounded-md shadow-sm -space-y-px">
                 <div className="mt-10 sm:mt-0">
@@ -45,6 +72,7 @@ const SignUpPage = () => {
                                   type="text"
                                   name="first-name"
                                   id="first-name"
+                                  onChange={(e) => setFirstName(e.target.value)}
                                   className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-s"
                                 />
                               </div>
@@ -60,6 +88,7 @@ const SignUpPage = () => {
                                   type="text"
                                   name="last-name"
                                   id="last-name"
+                                  onChange={(e) => setLastName(e.target.value)}
                                   className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-s"
                                 />
                               </div>
@@ -75,6 +104,7 @@ const SignUpPage = () => {
                                   type="text"
                                   name="email-address"
                                   id="email-address"
+                                  onChange={(e) => setEmail(e.target.value)}
                                   className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-sm"
                                 />
                               </div>
@@ -90,10 +120,11 @@ const SignUpPage = () => {
                                   type="text"
                                   name="new-password"
                                   id="new-password"
+                                  onChange={(e) => setPassword(e.target.value)}
                                   className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-sm"
                                 />
                               </div>
-
+                              {/*
                               <div className="col-span-6">
                                 <label
                                   htmlFor="country"
@@ -156,6 +187,7 @@ const SignUpPage = () => {
                                   className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-sm  "
                                 />
                               </div>
+                             */}
                             </div>
                           </div>
 
