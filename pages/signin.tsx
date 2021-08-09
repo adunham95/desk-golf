@@ -45,10 +45,10 @@ const SignInPage = () => {
                 Or
                 <a
                   href="#"
-                  className="font-medium text-primary hover:text-primaryLight"
+                  className="font-medium text-primary hover:text-primaryDark"
                 >
-                  <span> </span>
-                  start your 14-day free trial
+                  {' '}
+                  Create an account
                 </a>
               </p>
             </div>
