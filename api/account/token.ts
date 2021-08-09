@@ -21,6 +21,6 @@ export async function createToken(sessionToken, userID) {
     return { accessToken, refreshToken };
   } catch (error) {
     console.error('e', error);
-    return '';
+    return { accessToken: '', refreshToken: '' };
   }
 }
