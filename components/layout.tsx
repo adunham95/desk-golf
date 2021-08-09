@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
+import { Banner } from './banner';
 
 const metaData = {
   siteName: 'Disk Golf',
@@ -12,7 +13,16 @@ interface LayoutInterface {
   children: React.ReactChild | React.ReactChild[] | React.ReactChildren | React.ReactChildren[]
 }
 
-export const Layout = ({ pageTitle = '', children, showHeader = true }:LayoutInterface) => (
+const banner = {
+  show: true,
+  link: 'google.com',
+  text: 'Some text here',
+  cta: 'Learn More',
+};
+
+export const Layout = ({
+  pageTitle = '', children, showHeader = true,
+}:LayoutInterface) => (
   <>
     <Head>
       <title>{pageTitle !== '' ? `${pageTitle} | ${metaData.siteName}` : metaData.siteName}</title>
@@ -25,6 +35,16 @@ export const Layout = ({ pageTitle = '', children, showHeader = true }:LayoutInt
         href="/favicon.ico"
       />
     </Head>
-    {children}
+    {banner.show && (
+    <Banner
+      text={banner.text}
+      link={banner.link}
+      cta={banner.cta}
+
+    />
+    )}
+    <main>
+      {children}
+    </main>
   </>
 );
