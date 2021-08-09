@@ -7,11 +7,12 @@ const metaData = {
 };
 
 interface LayoutInterface {
+  showHeader?: boolean,
   pageTitle?: string,
   children: React.ReactChild | React.ReactChild[] | React.ReactChildren | React.ReactChildren[]
 }
 
-export const Layout = ({ pageTitle = '', children }:LayoutInterface) => (
+export const Layout = ({ pageTitle = '', children, showHeader = true }:LayoutInterface) => (
   <>
     <Head>
       <title>{pageTitle !== '' ? `${pageTitle} | ${metaData.siteName}` : metaData.siteName}</title>
