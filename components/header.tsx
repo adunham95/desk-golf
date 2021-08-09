@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 const links = [
   { id: 'dashboard', title: 'Dashboard', path: '/' },
-  { id: 'dashboard2', title: 'Dashboard 2', path: '/' },
 ];
 
 const Header = () => {
