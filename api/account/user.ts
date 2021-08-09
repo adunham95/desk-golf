@@ -33,7 +33,6 @@ export async function refreshTokens(sessionToken, userID, reply) {
 
     const now = new Date();
     const refreshExpires = new Date(now.getTime() + 1000 * 60 * 60 * 24 * 30);
-    console.log(refreshExpires);
 
     reply.setHeader('Set-Cookie',
       cookie.serialize('accessToken', accessToken, {
