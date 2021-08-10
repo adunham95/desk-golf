@@ -1,0 +1,15 @@
+type User {
+  id: ID!
+  name: Name
+  email: Email
+}
+
+type Name {
+  first: String!
+  last: String!
+}
+
+type Email {
+  address: String!
+  verified: Boolean!
+}
