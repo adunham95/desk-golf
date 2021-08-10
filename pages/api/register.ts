@@ -1,4 +1,3 @@
-import { parseBody } from 'next/dist/next-server/server/api-utils';
 import { registerUser } from '../../auth/account/user';
 import { connectDB } from '../../auth/db';
 
