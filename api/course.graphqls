@@ -1,0 +1,24 @@
+type Course{
+    id: ID!
+    name: String!
+    games: [Game]
+    holes: Int
+    address: Address
+}
+
+type Address{
+    street: String
+    state: String
+    zip: Int
+}
+
+type Game{
+    id: ID!
+    played: String
+    rounds: [Hole]
+}
+
+type Hole{
+    par: Int
+    shots: Int
+}
