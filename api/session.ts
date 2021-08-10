@@ -8,7 +8,7 @@ export async function createSession(userID, connection) {
     // User agent, IP
     const { ip, userAgent } = connection;
     // Database create session
-    const { session } = await import('../session/session');
+    const { session } = await import('./session/session');
     await session.insertOne({
       sessionToken,
       userID,
