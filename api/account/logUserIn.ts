@@ -1,4 +1,4 @@
-import { createSession } from './session';
+import { createSession } from '../session';
 import { refreshTokens } from './user';
 
 export async function logUserIn(userID, req, reply) {
