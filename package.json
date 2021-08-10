@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "codegen": "graphql-let",
-    "dev": "npm run codegen && next dev",
-    "build": "npm run codegen && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
