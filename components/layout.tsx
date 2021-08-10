@@ -32,6 +32,10 @@ export const Layout = ({
         name="description"
         content={metaData.description}
       />
+      <meta
+        name="theme-color"
+        content="#6dd6c2"
+      />
       <link
         rel="icon"
         href="/favicon.ico"
