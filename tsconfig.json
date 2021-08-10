@@ -16,5 +16,5 @@
     "noImplicitAny": false,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/layout.tss"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "__generated__"]
 }
