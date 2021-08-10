@@ -1,4 +1,7 @@
 fragment Partial on User {
   id
-  name
+  name {
+    first
+    last
+  }
 }
