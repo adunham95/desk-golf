@@ -1,7 +1,7 @@
 import { compare } from 'bcryptjs';
 
 export async function authorizeUser(email, password) {
-  const { user } = await import('../userDB');
+  const { user } = await import('../../db/userDB');
   // Look up user
   const userData = await user.findOne({
     'email.address': email,

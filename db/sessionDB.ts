@@ -1,4 +1,4 @@
-import { client } from '../db';
+import { client } from './db';
 
 const dbName = process.env.DB_NAME;
 

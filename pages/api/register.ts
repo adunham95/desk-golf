@@ -1,5 +1,5 @@
 import { registerUser } from '../../auth/account/user';
-import { connectDB } from '../../auth/db';
+import { connectDB } from '../../db/db';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

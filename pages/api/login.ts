@@ -1,6 +1,6 @@
 import { authorizeUser } from '../../auth/account/authorize';
 import { logUserIn } from '../../auth/account/logUserIn';
-import { connectDB } from '../../auth/db';
+import { connectDB } from '../../db/db';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

@@ -5,7 +5,7 @@ import { createToken } from './token';
 const { genSalt, hash } = bcrypt;
 
 export async function registerUser(email: string, password: string, name: {first: string, last: string}) {
-  const { user } = await import('../userDB');
+  const { user } = await import('../../db/userDB');
 
   // generate slat
   const salt = await genSalt(10);
