@@ -1,6 +1,6 @@
-import { authorizeUser } from '../../api/account/authorize';
-import { logUserIn } from '../../api/account/logUserIn';
-import { connectDB } from '../../api/db';
+import { authorizeUser } from '../../auth/account/authorize';
+import { logUserIn } from '../../auth/account/logUserIn';
+import { connectDB } from '../../auth/db';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

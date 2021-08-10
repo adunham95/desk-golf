@@ -1,6 +1,6 @@
 import { parseBody } from 'next/dist/next-server/server/api-utils';
-import { registerUser } from '../../api/account/user';
-import { connectDB } from '../../api/db';
+import { registerUser } from '../../auth/account/user';
+import { connectDB } from '../../auth/db';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
