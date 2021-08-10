@@ -1,13 +1,21 @@
 # import Partial from './partial.graphql'
 
-query Viewer {
-  viewer {
-    ...Partial
+query Viewer($id: String!) {
+  viewer(id:$id) {
+    id
+    name{
+      first
+      last
+    }
+    email{
+      address
+      verified
+    }
   }
 }
 
-mutation UpdateName($name: String!) {
-  updateName(name: $name) {
+mutation UpdateName($firstName: String, $lastName: String) {
+  updateName(firstName: $firstName, lastName: $lastName) {
     id
     name{
       first

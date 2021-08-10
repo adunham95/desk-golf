@@ -16,7 +16,9 @@ const userProfile = {
 
 const Mutation: Required<MutationResolvers<ResolverContext>> = {
   async updateName(_parent, _args, _context, _info) {
-    userProfile.name = _args.name;
+    console.log(_args);
+
+    // userProfile.name = _args.name;
     return userProfile;
   },
 };
