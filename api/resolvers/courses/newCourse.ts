@@ -19,7 +19,7 @@ export async function newCourse({
   const newCourseData = {
     name,
     holes,
-    createdBy: id,
+    createdBy: new ObjectId(id),
     games: [],
   };
 
