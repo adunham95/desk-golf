@@ -1,5 +1,4 @@
 import { ObjectId } from 'mongodb';
-import { connectDB } from '../../../db/db';
 import { sanitize } from '../../../util/sanitize';
 
 export async function getUserByID(id) {
