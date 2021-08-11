@@ -3,6 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import { Banner } from './banner';
 import Header from './header';
+import { AuthProvider } from '../context/auth';
 
 const metaData = {
   siteName: 'Disk Golf',
@@ -25,7 +26,7 @@ const banner = {
 export const Layout = ({
   pageTitle = '', children, showHeader = true,
 }:LayoutInterface) => (
-  <>
+  <AuthProvider>
     <Head>
       <title>{pageTitle !== '' ? `${pageTitle} | ${metaData.siteName}` : metaData.siteName}</title>
       <meta
@@ -74,5 +75,5 @@ export const Layout = ({
     <main>
       {children}
     </main>
-  </>
+  </AuthProvider>
 );

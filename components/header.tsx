@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from '../context/auth';
 
 const links = [
   { id: 'dashboard', title: 'Dashboard', path: '/' },
@@ -7,6 +8,7 @@ const links = [
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [profileMenu, setProfileMenu] = useState(false);
+  const { user } = useAuth();
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -149,7 +151,9 @@ const Header = () => {
                   role="menuitem"
                   id="user-menu-item-0"
                 >
-                  Your Profile
+                  Your Profile:
+                  {' '}
+                  {user}
                 </a>
                 <a
                   href="#"
