@@ -20,13 +20,13 @@ const apolloServer = new ApolloServer({
 
         user = await getUserFromCookies(req, res);
 
-        console.log(user);
+        console.log('user', user);
       } catch (e) {
         console.log('--->error while connecting with graphql context (db)', e);
       }
     }
 
-    return { db, userID: user.userID };
+    return { db, userID: user._id.toString() };
   },
 });
 

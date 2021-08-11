@@ -5,4 +5,5 @@ type Query {
 
 type Mutation {
   updateName(firstName: String, lastName: String, email: String, id: String!): User!
+  createCourse(name: String!, holes: Int): Course!
 }

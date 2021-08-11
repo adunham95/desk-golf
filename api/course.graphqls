@@ -3,7 +3,7 @@ type Course{
     name: String!
     games: [Game]
     holes: Int
-    address: Address
+    createdBy: String
 }
 
 type Address{
