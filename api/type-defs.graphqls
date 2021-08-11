@@ -1,6 +1,7 @@
 type Query {
   viewer(id: String!): User!
   viewers: [User!]
+  getCourses: [Course]
 }
 
 type Mutation {
