@@ -1,8 +1,11 @@
 import bcrypt from 'bcryptjs';
 import cookie from 'cookie';
+import { ObjectId } from 'mongodb';
+import JWT from 'jsonwebtoken';
 import { createToken } from './token';
 
 const { genSalt, hash } = bcrypt;
+const JWTSignature: string = process.env.JWT_SIGNATURE || '';
 
 export async function registerUser(email: string, password: string, name: {first: string, last: string}) {
   const { user } = await import('../../db/userDB');
@@ -48,5 +51,44 @@ export async function refreshTokens(sessionToken, userID, reply) {
       }));
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function getUserFromCookies(req, reply) {
+  try {
+    const { user } = await import('../../db/userDB');
+    const { session } = await import('../../db/sessionDB');
+    const cookies = cookie.parse(req.headers.cookie || '');
+    // Check tokens exist
+    if (cookies?.accessToken) {
+      // If access token exits
+      const { accessToken } = req.cookies;
+      // Decode token
+      const decodedAccessToken: any = JWT.verify(accessToken, JWTSignature);
+      console.log(decodedAccessToken);
+      // Return user
+      const userAccount = await user.findOne({
+        _id: new ObjectId(decodedAccessToken?.userID),
+      });
+      return userAccount;
+    }
+    if (cookies?.refreshToken) {
+      const { refreshToken } = req.cookies;
+      // @ts-ignore
+      const { sessionToken } = JWT.verify(refreshToken, JWTSignature);
+      // Look up session
+      const currentSession = await session.findOne({ sessionToken });
+      if (currentSession?.valid) {
+        const currentUser = await user.findOne({
+          _id: new ObjectId(currentSession.userID),
+        });
+        await refreshTokens(sessionToken, currentUser?._id, reply);
+        return currentUser;
+      }
+    }
+    return { userID: '' };
+  } catch (error) {
+    console.error(error);
+    return { userID: '' };
   }
 }
