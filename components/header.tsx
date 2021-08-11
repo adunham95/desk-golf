@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '../context/auth';
 
 const links = [
-  { id: 'dashboard', title: 'Dashboard', path: '/' },
+  { id: 'dashboard', title: 'Dashboard', path: '/dashboard' },
 ];
 
 const Header = () => {
@@ -90,14 +91,17 @@ const Header = () => {
                 {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                 {
                     links.map((l) => (
-                      <a
+                      <span
                         key={`${l.id}-desktop`}
-                        href={l.path}
                         className="bg-primaryDark text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-primaryLight hover:text-black transit duration-100"
-                        aria-current="page"
                       >
-                        {l.title}
-                      </a>
+                        <Link
+                          href={l.path}
+                          aria-current="page"
+                        >
+                          {l.title}
+                        </Link>
+                      </span>
                     ))
                 }
               </div>
@@ -192,14 +196,18 @@ const Header = () => {
           {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
           {
                 links.map((l) => (
-                  <a
+                  <span
                     key={`${l.id}-desktop`}
-                    href={l.path}
                     className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                    aria-current="page"
                   >
-                    {l.title}
-                  </a>
+                    <Link
+                      href={l.path}
+                      aria-current="page"
+                    >
+                      {l.title}
+                    </Link>
+                  </span>
+
                 ))
             }
           {/* <a
