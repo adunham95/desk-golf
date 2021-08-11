@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "noImplicitAny": false,
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/layout.tss"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "__generated__"]
 }
