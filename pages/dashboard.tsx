@@ -1,3 +1,4 @@
+import { getMyCourses } from '../api/resolvers/courses/getMyCourses';
 import { getUserFromCookies } from '../auth/account/user';
 import { Layout } from '../components/layout';
 import { connectDB } from '../db/db';
@@ -17,7 +18,7 @@ const CourseCard = ({
   </div>
 );
 
-const Dashboard = ({ accountInfo }) => (
+const Dashboard = ({ accountInfo, courses }) => (
   <Layout pageTitle="Dashboard">
     <header className="bg-white shadow">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -46,46 +47,14 @@ const Dashboard = ({ accountInfo }) => (
             />
             <h3>New Course</h3>
           </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
-          <CourseCard>
-            <MapIcon className="h-2/5 md:h-1/2" />
-            <h3>Course 1</h3>
-          </CourseCard>
+          {
+            courses.map((c) => (
+              <CourseCard key={c.id}>
+                <MapIcon className="h-2/5 md:h-1/2" />
+                <h3>{c.name}</h3>
+              </CourseCard>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -106,11 +75,15 @@ export async function getServerSideProps(context) {
     };
   }
 
+  const courses = await getMyCourses(user._id.toString());
+  console.log(courses);
+
   return {
     props: {
       accountInfo: {
         name: user?.name,
       },
+      courses,
     }, // will be passed to the page component as props
   };
 }
