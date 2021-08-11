@@ -31,7 +31,7 @@ export async function getServerSideProps(context) {
   const user = await getUserFromCookies(context.req, context.res);
   console.log(user);
 
-  if (!user?.id) {
+  if (!user?._id) {
     return {
       redirect: {
         destination: '/signin',
