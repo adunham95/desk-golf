@@ -1,5 +1,6 @@
 import { getMyCourses } from '../api/resolvers/courses/getMyCourses';
 import { getUserFromCookies } from '../auth/account/user';
+import { Container } from '../components/container';
 import { Layout } from '../components/layout';
 import { PageHeader } from '../components/pageHeader';
 import { connectDB } from '../db/db';
@@ -22,7 +23,7 @@ const CourseCard = ({
 const Dashboard = ({ accountInfo, courses }) => (
   <Layout pageTitle="Dashboard">
     <PageHeader text={`Hello, ${accountInfo?.name?.first}`} />
-    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <Container>
       {/* <div className="border-0 border-b-2 border-primaryDark pb-1 m-2 md:m-0 md:p-0 md:pb-0">
         <h2 className="text-2xl">Recent Games</h2>
       </div> */}
@@ -50,7 +51,7 @@ const Dashboard = ({ accountInfo, courses }) => (
           }
         </div>
       </div>
-    </div>
+    </Container>
   </Layout>
 );
 
