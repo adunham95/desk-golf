@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getMyCourses } from '../api/resolvers/courses/getMyCourses';
 import { getUserFromCookies } from '../auth/account/user';
 import { Container } from '../components/container';
@@ -8,16 +9,36 @@ import MapIcon from '../icons/MapIcon';
 import PlusIcon from '../icons/PlusIcon';
 
 const CourseCard = ({
-  children, className = '', background = 'bg-primaryDark', text = 'text-primaryText',
+  children, className = '', background = 'bg-primaryDark', text = 'text-primaryText', to = '',
 }) => (
-  <div className="w-1/3 p-1 md:w-1/6 relative">
-    <div className="aspect-ratio-square" />
-    <div className={`${className} absolute inset-0 p-1 md:p-1`}>
-      <div className={`${background} ${text} flex justify-center items-center flex-col rounded-md w-full h-full`}>
-        {children}
-      </div>
-    </div>
-  </div>
+  <>
+    {to === ''
+      ? (
+        <div className="w-1/3 p-1 md:w-1/6 relative">
+          <div className="aspect-ratio-square" />
+          <div className={`${className} absolute inset-0 p-1 md:p-1`}>
+            <div className={`${background} ${text} flex justify-center items-center flex-col rounded-md w-full h-full`}>
+              {children}
+            </div>
+          </div>
+        </div>
+      )
+      : (
+        <Link
+          href={to}
+          passHref
+        >
+          <a className="w-1/3 p-1 md:w-1/6 relative">
+            <div className="aspect-ratio-square" />
+            <div className={`${className} absolute inset-0 p-1 md:p-1`}>
+              <div className={`${background} ${text} flex justify-center items-center flex-col rounded-md w-full h-full`}>
+                {children}
+              </div>
+            </div>
+          </a>
+        </Link>
+      )}
+  </>
 );
 
 const Dashboard = ({ accountInfo, courses }) => (
@@ -35,6 +56,7 @@ const Dashboard = ({ accountInfo, courses }) => (
           <CourseCard
             background="bg-green-500"
             text="text-white"
+            to="/course/new"
           >
             <PlusIcon
               className="h-2/5 md:h-1/2"

@@ -40,7 +40,8 @@
       "react/react-in-jsx-scope": 0,
       "import/extensions": 0,
       "react/require-default-props": 0,
-      "@next/next/no-img-element": "off"
+      "@next/next/no-img-element": "off",
+      "@next/next/link-passhref": 0
   }
 }
 
