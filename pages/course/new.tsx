@@ -4,6 +4,8 @@ import { Container } from '../../components/container';
 import { Layout } from '../../components/layout';
 import { PageHeader } from '../../components/pageHeader';
 import { CREATE_COURSE } from '../../api/hooks/courses';
+import { connectDB } from '../../db/db';
+import { getUserFromCookies } from '../../auth/account/user';
 
 const NewCourse = (props) => {
   const [courseName, setCourseName] = useState('');
@@ -87,5 +89,29 @@ const NewCourse = (props) => {
     </Layout>
   );
 };
+
+export async function getServerSideProps(context) {
+  await connectDB();
+  const user = await getUserFromCookies(context.req, context.res);
+  console.log(user);
+
+  if (!user?._id) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      accountInfo: {
+        email: user?.email,
+        name: user?.name,
+      },
+    }, // will be passed to the page component as props
+  };
+}
 
 export default NewCourse;
