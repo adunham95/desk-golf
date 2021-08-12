@@ -1,14 +1,20 @@
+import { useMutation } from '@apollo/react-hooks';
 import { useState } from 'react';
 import { Container } from '../../components/container';
 import { Layout } from '../../components/layout';
 import { PageHeader } from '../../components/pageHeader';
+import { CREATE_COURSE } from '../../api/hooks/courses';
 
 const NewCourse = (props) => {
   const [courseName, setCourseName] = useState('');
-  const [holes, setHoles] = useState(18);
+  const [holes, setHoles] = useState('18');
+  const [createCourse] = useMutation(CREATE_COURSE);
 
   function createAccount(e) {
     e.preventDefault();
+    createCourse({
+      variables: { name: courseName, holes: parseInt(holes, 10) },
+    });
   }
   return (
     <Layout>
