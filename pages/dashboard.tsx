@@ -61,13 +61,13 @@ const Dashboard = ({ accountInfo, courses }) => (
             <PlusIcon
               className="h-2/5 md:h-1/2"
             />
-            <h3>New Course</h3>
+            <h3 className="text-center">New Course</h3>
           </CourseCard>
           {
             courses.map((c) => (
               <CourseCard key={c.id}>
                 <MapIcon className="h-2/5 md:h-1/2" />
-                <h3>{c.name}</h3>
+                <h3 className="text-center">{c.name}</h3>
               </CourseCard>
             ))
           }
