@@ -1,6 +1,7 @@
 import { getMyCourses } from '../api/resolvers/courses/getMyCourses';
 import { getUserFromCookies } from '../auth/account/user';
 import { Layout } from '../components/layout';
+import { PageHeader } from '../components/pageHeader';
 import { connectDB } from '../db/db';
 import MapIcon from '../icons/MapIcon';
 import PlusIcon from '../icons/PlusIcon';
@@ -20,15 +21,7 @@ const CourseCard = ({
 
 const Dashboard = ({ accountInfo, courses }) => (
   <Layout pageTitle="Dashboard">
-    <header className="bg-white shadow">
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900">
-          Hello,
-          {' '}
-          {accountInfo?.name?.first}
-        </h1>
-      </div>
-    </header>
+    <PageHeader text={`Hello, ${accountInfo?.name?.first}`} />
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       {/* <div className="border-0 border-b-2 border-primaryDark pb-1 m-2 md:m-0 md:p-0 md:pb-0">
         <h2 className="text-2xl">Recent Games</h2>
