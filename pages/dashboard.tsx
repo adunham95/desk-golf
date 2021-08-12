@@ -83,7 +83,7 @@ export async function getServerSideProps(context) {
       accountInfo: {
         name: user?.name,
       },
-      courses,
+      courses: JSON.parse(JSON.stringify(courses)),
     }, // will be passed to the page component as props
   };
 }
