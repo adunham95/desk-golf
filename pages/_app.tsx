@@ -2,13 +2,19 @@ import '../styles/globals.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'tailwindcss/tailwind.css';
 import type { AppProps } from 'next/app';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient, { gql } from 'apollo-boost';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from '@apollo/client';
 import { AuthProvider } from '../context/auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
     uri: '/api/graphql',
+    cache: new InMemoryCache(),
   });
 
   return (

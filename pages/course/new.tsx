@@ -1,5 +1,5 @@
-import { useMutation } from '@apollo/react-hooks';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { Container } from '../../components/container';
 import { Layout } from '../../components/layout';
 import { PageHeader } from '../../components/pageHeader';
