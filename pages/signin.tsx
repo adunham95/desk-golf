@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { Layout } from '../components/layout';
 
 const SignInPage = () => {
@@ -43,13 +44,17 @@ const SignInPage = () => {
               </h2>
               <p className="mt-2 text-center text-sm text-gray-600">
                 Or
-                <a
-                  href="#"
-                  className="font-medium text-primary hover:text-primaryDark"
+                <Link
+                  href="/signup"
+                  passHref
                 >
-                  {' '}
-                  Create an account
-                </a>
+                  <a
+                    className="font-medium text-primary hover:text-primaryDark"
+                  >
+                    {' '}
+                    Create an account
+                  </a>
+                </Link>
               </p>
             </div>
             <form
