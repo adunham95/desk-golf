@@ -92,3 +92,13 @@ export async function getUserFromCookies(req, reply) {
     return { userID: '' };
   }
 }
+
+export async function doesEmailExist(email:string) {
+  const { user } = await import('../../db/userDB');
+  // Look up user
+  const userData = await user.find({
+    'email.address': email,
+  }).toArray();
+
+  return userData.length > 0;
+}

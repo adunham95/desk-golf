@@ -6,6 +6,7 @@ const SignUpPage = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [msg, setMsg] = useState({ msg: '', type: '' });
 
   async function createAccount(e) {
     try {
@@ -26,8 +27,24 @@ const SignUpPage = () => {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       });
+      const resBody = await res.json();
+      console.log(resBody);
+
+      setMsg({ msg: resBody.data, type: resBody.status });
     } catch (error) {
       console.error(error);
+      setMsg({ msg: 'Error Creating account', type: 'error' });
+    }
+  }
+
+  function getMessageClass(msgType) {
+    switch (msgType.toLowerCase()) {
+      case 'error':
+        return 'text-red-500';
+      case 'success':
+        return 'text-green-500';
+      default:
+        return 'text-black';
     }
   }
 
@@ -54,77 +71,73 @@ const SignUpPage = () => {
                 <div className="mt-10 sm:mt-0">
                   <div className="md:grid md:grid-cols-2 md:gap-6">
                     <div className="mt-5 md:mt-0 md:col-span-2">
-                      <form
-                        action="#"
-                        method="POST"
-                      >
-                        <div className="shadow overflow-hidden sm:rounded-md">
-                          <div className="px-4 py-5 bg-white sm:p-6">
-                            <div className="grid grid-cols-6 gap-6">
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  htmlFor="first-name"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  First name
-                                </label>
-                                <input
-                                  type="text"
-                                  name="first-name"
-                                  id="first-name"
-                                  onChange={(e) => setFirstName(e.target.value)}
-                                  className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-s"
-                                />
-                              </div>
+                      <div className="shadow overflow-hidden sm:rounded-md">
+                        <div className="px-4 py-5 bg-white sm:p-6">
+                          <div className="grid grid-cols-6 gap-6">
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                First name
+                              </label>
+                              <input
+                                type="text"
+                                name="first-name"
+                                id="first-name"
+                                onChange={(e) => setFirstName(e.target.value)}
+                                className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-s"
+                              />
+                            </div>
 
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  htmlFor="last-name"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Last name
-                                </label>
-                                <input
-                                  type="text"
-                                  name="last-name"
-                                  id="last-name"
-                                  onChange={(e) => setLastName(e.target.value)}
-                                  className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-s"
-                                />
-                              </div>
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="last-name"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Last name
+                              </label>
+                              <input
+                                type="text"
+                                name="last-name"
+                                id="last-name"
+                                onChange={(e) => setLastName(e.target.value)}
+                                className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-s"
+                              />
+                            </div>
 
-                              <div className="col-span-6">
-                                <label
-                                  htmlFor="email-address"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Email address
-                                </label>
-                                <input
-                                  type="text"
-                                  name="email-address"
-                                  id="email-address"
-                                  onChange={(e) => setEmail(e.target.value)}
-                                  className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-sm"
-                                />
-                              </div>
+                            <div className="col-span-6">
+                              <label
+                                htmlFor="email-address"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Email address
+                              </label>
+                              <input
+                                type="text"
+                                name="email-address"
+                                id="email-address"
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-sm"
+                              />
+                            </div>
 
-                              <div className="col-span-6">
-                                <label
-                                  htmlFor="new-password"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Password
-                                </label>
-                                <input
-                                  type="text"
-                                  name="new-password"
-                                  id="new-password"
-                                  onChange={(e) => setPassword(e.target.value)}
-                                  className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-sm"
-                                />
-                              </div>
-                              {/*
+                            <div className="col-span-6">
+                              <label
+                                htmlFor="new-password"
+                                className="block text-sm font-medium text-gray-700"
+                              >
+                                Password
+                              </label>
+                              <input
+                                type="text"
+                                name="new-password"
+                                id="new-password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="mt-1 border-0 border-b-2 border-primary block w-full shadow-sm sm:text-sm"
+                              />
+                            </div>
+                            {/*
                               <div className="col-span-6">
                                 <label
                                   htmlFor="country"
@@ -188,11 +201,17 @@ const SignUpPage = () => {
                                 />
                               </div>
                              */}
+                            { msg.msg !== '' && (
+                            <div className="col-span-6">
+                              <p className={getMessageClass(msg.type)}>
+                                {msg.msg}
+                              </p>
                             </div>
+                            )}
                           </div>
-
                         </div>
-                      </form>
+
+                      </div>
                     </div>
                   </div>
                 </div>
