@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Layout } from '../components/layout';
+import { useAuth } from '../context/auth';
 
 const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -7,6 +8,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState({ msg: '', type: '' });
+  const { setUser } = useAuth();
 
   async function createAccount(e) {
     try {
@@ -29,6 +31,10 @@ const SignUpPage = () => {
       });
       const resBody = await res.json();
       console.log(resBody);
+
+      if (resBody?.userID) {
+        setUser(resBody.userID);
+      }
 
       setMsg({ msg: resBody.data, type: resBody.status });
     } catch (error) {
