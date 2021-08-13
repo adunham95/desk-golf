@@ -42,7 +42,10 @@ const CourseCard = ({
 );
 
 const Dashboard = ({ accountInfo, courses }) => (
-  <Layout pageTitle="Dashboard">
+  <Layout
+    pageTitle="Dashboard"
+    userID={accountInfo?.id}
+  >
     <PageHeader text={`Hello, ${accountInfo?.name?.first}`} />
     <Container>
       {/* <div className="border-0 border-b-2 border-primaryDark pb-1 m-2 md:m-0 md:p-0 md:pb-0">
@@ -97,6 +100,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       accountInfo: {
+        id: user?._id.toString(),
         name: user?.name,
       },
       courses: JSON.parse(JSON.stringify(courses)),

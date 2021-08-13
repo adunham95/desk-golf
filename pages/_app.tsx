@@ -4,6 +4,7 @@ import 'tailwindcss/tailwind.css';
 import type { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient, { gql } from 'apollo-boost';
+import { AuthProvider } from '../context/auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     // @ts-ignore
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </ApolloProvider>
   );
 }
