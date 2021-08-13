@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       console.error(error);
       res.send({
         status: 'FAILED',
-        data: 'Auth Failed',
+        data: 'Failed Logging User in',
       });
     }
   } else {

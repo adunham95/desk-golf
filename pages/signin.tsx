@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Layout } from '../components/layout';
+import { useAuth } from '../context/auth';
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [msg, setMsg] = useState({ msg: '', type: '' });
+  const { setUser } = useAuth();
 
   async function login(e) {
     try {
@@ -23,8 +26,28 @@ const SignInPage = () => {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       });
+
+      const resBody = await res.json();
+      console.log(resBody);
+
+      if (resBody?.userID) {
+        setUser(resBody.userID);
+      }
+
+      setMsg({ msg: resBody.data, type: resBody.status });
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  function getMessageClass(msgType) {
+    switch (msgType.toLowerCase()) {
+      case 'error':
+        return 'text-red-500';
+      case 'success':
+        return 'text-green-500';
+      default:
+        return 'text-black';
     }
   }
 
@@ -128,6 +151,14 @@ const SignInPage = () => {
                   </a>
                 </div>
               </div>
+
+              { msg.msg !== '' && (
+              <div className="col-span-6">
+                <p className={getMessageClass(msg.type)}>
+                  {msg.msg}
+                </p>
+              </div>
+              )}
 
               <div>
                 <button
