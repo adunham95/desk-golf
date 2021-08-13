@@ -1,3 +1,4 @@
+/* eslint no-use-before-define:0 */
 import React from 'react';
 import { getUserFromCookies } from '../auth/account/user';
 import { connectDB } from '../db/db';
