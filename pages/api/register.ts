@@ -6,6 +6,7 @@ export default async function handler(req, res) {
     try {
       await connectDB();
       const userExists = doesEmailExist(req.body.email);
+      // @ts-ignore
       if (userExists) {
         res.send({
           status: 'error',
