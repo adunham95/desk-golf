@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../context/auth';
+import { NavLink } from './NavLink';
 
 const links = [
+  { id: 'signIn', title: 'Sign In', path: '/signin' },
+  { id: 'signUp', title: 'Sign Up', path: '/signup' },
+];
+
+const loggedInLinks = [
   { id: 'dashboard', title: 'Dashboard', path: '/dashboard' },
 ];
 
@@ -90,45 +96,56 @@ const Header = () => {
               <div className="flex space-x-4">
                 {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                 {
-                    links.map((l) => (
-                      <span
+                    user === '' ? links.map((l) => (
+                      <NavLink
+                        href={l.path}
+                        className="px-3 py-1 text-sm font-medium hover:border-primaryLight hover:text-primaryText transit duration-100 text-white border-b-2"
+                        activeClass="border-primaryDark"
+                        nonActiveClass="border-transparent"
                         key={`${l.id}-desktop`}
-                        className="bg-primaryDark text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-primaryLight hover:text-black transit duration-100"
                       >
-                        <Link
-                          href={l.path}
-                          aria-current="page"
-                        >
-                          {l.title}
-                        </Link>
-                      </span>
+                        <span>{l.title}</span>
+                      </NavLink>
                     ))
+                      : loggedInLinks.map((l) => (
+                        <NavLink
+                          href={l.path}
+                          className="px-3 py-1 text-sm font-medium hover:border-primaryLight hover:text-primaryText transit duration-100 text-white border-b-2"
+                          activeClass="border-primaryDark"
+                          nonActiveClass="border-transparent"
+                          key={`${l.id}-desktop`}
+                        >
+                          <span>{l.title}</span>
+                        </NavLink>
+                      ))
                 }
               </div>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* <!-- Profile dropdown --> */}
-            <div className="ml-3 relative">
-              <div>
-                <button
-                  type="button"
-                  className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  id="user-menu-button"
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  onClick={() => setProfileMenu(!profileMenu)}
-                >
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </button>
-              </div>
+            {
+              user !== '' && (
+              <div className="ml-3 relative">
+                <div>
+                  <button
+                    type="button"
+                    className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    id="user-menu-button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    onClick={() => setProfileMenu(!profileMenu)}
+                  >
+                    <span className="sr-only">Open user menu</span>
+                    <img
+                      className="h-8 w-8 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
+                  </button>
+                </div>
 
-              {/* <!--
+                {/* <!--
             Dropdown menu, show/hide based on menu state.
 
             Entering: "transition ease-out duration-100"
@@ -138,10 +155,8 @@ const Header = () => {
               From: "transform opacity-100 scale-100"
               To: "transform opacity-0 scale-95"
           --> */}
-              {
-              profileMenu
-
-              && (
+                {
+              profileMenu && (
               <div
                 className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu"
@@ -178,7 +193,9 @@ const Header = () => {
               </div>
               )
 }
-            </div>
+              </div>
+              )
+}
           </div>
         </div>
       </div>
@@ -195,21 +212,29 @@ const Header = () => {
         <div className="px-2 pt-2 pb-3 space-y-1">
           {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
           {
-                links.map((l) => (
-                  <span
-                    key={`${l.id}-desktop`}
-                    className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    <Link
-                      href={l.path}
-                      aria-current="page"
-                    >
-                      {l.title}
-                    </Link>
-                  </span>
-
-                ))
-            }
+            user === '' ? links.map((l) => (
+              <NavLink
+                key={`${l.id}-mobile`}
+                href={l.path}
+                className="block px-3 py-2 rounded-md text-base font-medium"
+                activeClass="bg-primaryDark text-black"
+                nonActiveClass="text-white"
+              >
+                {l.title}
+              </NavLink>
+            ))
+              : loggedInLinks.map((l) => (
+                <NavLink
+                  key={`${l.id}-mobile`}
+                  href={l.path}
+                  className="block px-3 py-2 rounded-md text-base font-medium"
+                  activeClass="bg-primaryDark text-black"
+                  nonActiveClass="text-white"
+                >
+                  {l.title}
+                </NavLink>
+              ))
+          }
           {/* <a
             href="#"
             className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
